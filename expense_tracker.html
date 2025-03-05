@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>Expense Tracker</h2>
+    <p>Track your expenses efficiently.</p>
+
+    <div class="expense-form">
+        <form id="expense-form" method="POST">
+            <label for="expense-name">Expense Name:</label>
+            <input type="text" id="expense-name" name="expense-name" required>
+
+            <label for="expense-amount">Amount:</label>
+            <input type="number" id="expense-amount" name="expense-amount" required>
+
+            <label for="expense-category">Category:</label>
+            <select id="expense-category" name="expense-category">
+                <option value="Grocery">Grocery</option>
+                <option value="Medicine">Medicine</option>
+                <option value="Ration">Ration</option>
+                <option value="Travel">Travel</option>
+                <option value="Rent">Rent</option>
+                <option value="Housing-Repairs">Housing Repairs</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Dairy">Dairy</option>
+                <option value="Beauty care">Beauty Care</option>
+                <option value="Maid">Maid and Other Services</option>
+                <option value="Subscription_memberships">Subscription and Memberships</option>
+                <option value="Childcare and Education">Childcare and Education</option>
+                <option value="Menstrual Hygiene">Menstrual Hygiene</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Debt and EMI payments">Debt and EMI Payments</option>
+                <option value="Taxes">Taxes</option>
+                <option value="Insurance">Insurance</option>
+                <option value="My Learning">My Learning</option>
+            </select>
+
+            <button type="submit" class="add-btn">Add Expense</button>
+        </form>
+    </div>
+
+    <form action="/delete_all_expenses" method="POST">
+        <button type="submit" class="delete-all-btn">Delete All Expenses</button>
+    </form>
+
+
+    {% if overspending_alert %}
+    <div style="background-color: red; color: white; padding: 10px; border-radius: 5px;">
+    {{ overspending_alert }}
+    </div>
+    {% endif %}
+
+    <div>
+        <h3>Expense History</h3>
+        <p><strong>Total Expenses:</strong> ₹{{ total_expense }}</p>
+        <table id="expense-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.name }}</td>
+                    <td>{{ expense.amount }}</td>
+                    <td>{{ expense.category }}</td>
+                    <td>
+                        <form action="{{ url_for('delete_expense', expense_id=expense.id) }}" method="POST">
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
+                        <form action="{{ url_for('edit_expense', expense_id=loop.index0) }}" method="GET">
+                            <button type="submit" class="edit-btn">Edit</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+    
+</div>
+{% endblock %}
+

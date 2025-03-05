@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Budget-Varahi{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Budget Management</h2>
+
+    <!-- Budget Input Form -->
+    <form action="{{ url_for('set_budget') }}" method="POST">
+        <label for="budget">Set Monthly Budget:</label>
+        <input type="number" id="budget" name="budget" required>
+        <button type="submit" class="save-btn">Save Budget</button>
+    </form>
+
+    <!-- Display Current Budget -->
+    <h2>Your Budget:</h2>
+    <p id="budget_display">{{ budget_value }}</p>
+
+    <div class="chart-options">
+        <label for="chartTypeSelect">Choose Chart Type:</label>
+        <select id="chartTypeSelect">
+          <option value="pie">Pie Chart</option>
+          <option value="bar">Bar Chart</option>
+        </select>
+      </div>
+
+
+    <div class="chart-container" style="position: relative; height:40vh; width:80vw; margin-top:20px;">
+        <canvas id="spendingChart"></canvas>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Convert the passed data to JavaScript arrays using the tojson filter
+        var categories = {{ categories|tojson }};
+        var totals = {{ totals|tojson }};
+        
+        var ctx = document.getElementById('spendingChart').getContext('2d');
+        var spendingChart = new Chart(ctx, {
+            type: 'pie', // Change to 'bar' if preferred
+            data: {
+                labels: categories,
+                datasets: [{
+                    label: 'Spending by Category',
+                    data: totals,
+                    backgroundColor: [
+                        '#ff6384',
+                        '#36a2eb',
+                        '#ffce56',
+                        '#4bc0c0',
+                        '#9966ff',
+                        '#ff9f40'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    title: { display: true, text: 'Spending Breakdown by Category' }
+                }
+            }
+        });
+      });
+    </script>
+
+
+
+
+
+</div>
+{% endblock %}

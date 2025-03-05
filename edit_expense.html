@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2 class="title">Edit Expense</h2>
+    <form method="POST" action="{{ url_for('update_expense', expense_id=expense_id) }}">
+        <label for="expense-name">Expense Name:</label>
+        <input type="text" id="expense-name" name="expense-name" value="{{ expense['name'] }}" required>
+    
+        <label for="expense-amount">Amount:</label>
+        <input type="number" id="expense-amount" name="expense-amount" value="{{ expense['amount'] }}" required>
+    
+        <label for="expense-category">Category:</label>
+        <select id="expense-category" name="expense-category">
+            <option value="Grocery" {% if expense['category']=="Grocery" %}selected{% endif %}>Grocery</option>
+            <option value="Medicine" {% if expense['category']=="Medicine" %}selected{% endif %}>Medicine</option>
+            <option value="Ration" {% if expense['category']=="Ration" %}selected{% endif %}>Ration</option>
+            <option value="Travel" {% if expense['category']=="Travel" %}selected{% endif %}>Travel</option>
+            <option value="Rent" {% if expense['category']=="Rent" %}selected{% endif %}>Rent</option>
+            <option value="Housing-Repairs" {% if expense['category']=="Housing-Repairs" %}selected{% endif %}>Housing Repairs</option>
+            <option value="Entertainment" {% if expense['category']=="Entertainment" %}selected{% endif %}>Entertainment</option>
+            <option value="Dairy" {% if expense['category']=="Dairy" %}selected{% endif %}>Dairy</option>
+            <option value="Beauty care" {% if expense['category']=="Beauty care" %}selected{% endif %}>Beauty Care</option>
+            <option value="Maid" {% if expense['category']=="Maid" %}selected{% endif %}>Maid and Other Services</option>
+            <option value="Subscription_memberships" {% if expense['category']=="Subscription_memberships" %}selected{% endif %}>Subscription and Memberships</option>
+            <option value="Childcare and Education" {% if expense['category']=="Childcare and Education" %}selected{% endif %}>Childcare and Education</option>
+            <option value="Menstrual Hygiene" {% if expense['category']=="Menstrual Hygiene" %}selected{% endif %}>Menstrual Hygiene</option>
+            <option value="Utilities" {% if expense['category']=="Utilities" %}selected{% endif %}>Utilities</option>
+            <option value="Debt and EMI payments" {% if expense['category']=="Debt and EMI payments" %}selected{% endif %}>Debt and EMI Payments</option>
+            <option value="Taxes" {% if expense['category']=="Taxes" %}selected{% endif %}>Taxes</option>
+            <option value="Insurance" {% if expense['category']=="Insurance" %}selected{% endif %}>Insurance</option>
+            <option value="My Learning" {% if expense['category']=="My Learning" %}selected{% endif %}>My Learning</option>
+        </select>
+    
+        <button type="submit" class="save-btn">Save Changes</button>
+        <a href="{{ url_for('expense_tracker') }}" class="cancel-btn">Cancel</a>
+    </form>
+</div>
+{% endblock %}

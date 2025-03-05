@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ calculator_type }} Calculator</h2>
+    
+    {% if calculator_type == 'SIP' %}
+    <form method="POST" action="{{ url_for('sip_calculator') }}">
+        <label for="monthly_investment">Monthly Investment (₹):</label>
+        <input type="number" id="monthly_investment" name="monthly_investment" required>
+        
+        <label for="annual_rate">Annual Interest Rate (%):</label>
+        <input type="number" id="annual_rate" name="annual_rate" step="0.01" required>
+        
+        <label for="years">Duration (Years):</label>
+        <input type="number" id="years" name="years" required>
+        
+        <button type="submit">Calculate SIP</button>
+    </form>
+    {% elif calculator_type == 'EMI' %}
+    <form method="POST" action="{{ url_for('emi_calculator') }}">
+        <label for="loan_amount">Loan Amount (₹):</label>
+        <input type="number" id="loan_amount" name="loan_amount" required>
+        
+        <label for="annual_rate">Annual Interest Rate (%):</label>
+        <input type="number" id="annual_rate" name="annual_rate" step="0.01" required>
+        
+        <label for="tenure_years">Tenure (Years):</label>
+        <input type="number" id="tenure_years" name="tenure_years" required>
+        
+        <button type="submit">Calculate EMI</button>
+    </form>
+    {% endif %}
+    
+    {% if result is not none %}
+    <p><strong>Result: ₹{{ result }}</strong></p>
+    {% endif %}
+</div>
+{% endblock %}

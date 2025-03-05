@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">User Profile</h1>
+
+        {% if user %}
+        <div class="profile-card">
+            <h2>Welcome, {{ user.name }}</h2>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+        </div>
+        {% else %}
+        <p>No user logged in. Please <a href="/add_user">register</a> first.</p>
+        {% endif %}
+
+        <h2 class="subtitle">All Users</h2>
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in users %}
+                <tr>
+                    <td>{{ u.id }}</td>
+                    <td>{{ u.name }}</td>
+                    <td>{{ u.email }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2 class="subtitle">Register a New User</h2>
+        <form action="/add_user" method="POST" class="user-form">
+            <label for="name">Name:</label>
+            <input type="text" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" name="email" required>
+            
+            <button type="submit" class="btn">Register</button>
+            <a href="{{ url_for('home') }}" class="btn btn-primary">Go to Home</a>
+        </form>
+    </div>
+</body>
+</html>

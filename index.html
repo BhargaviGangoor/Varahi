@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Varahi - Empowering Women Financially{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <h1 class="dashboard-title">Welcome to Varahi</h1>
+    <p class="dashboard-subtitle">Empowering Women Through Smart Financial Planning</p>
+
+    <div class="dashboard-grid">
+        <div class="dashboard-card">
+            <h2>Budgeting</h2>
+            <p>Track your income and expenses with ease.</p>
+            <a href="{{ url_for('budget') }}" class="dashboard-btn">Go to Budgeting</a>
+        </div>
+        
+        <div class="dashboard-card">
+            <h2>Expense Tracker</h2>
+            <p>Monitor and manage your daily spending.</p>
+            <a href="{{ url_for('expense_tracker') }}" class="dashboard-btn">Track Expenses</a>
+        </div>
+
+        <div class="dashboard-card">
+            <h2>Investments</h2>
+            <p>Learn and grow your wealth smartly.</p>
+            <a href="{{ url_for('investments') }}" class="dashboard-btn">Explore Investments</a>
+        </div>
+
+        <div class="dashboard-card">
+            <h2>Learning</h2>
+            <p>Enhance your financial knowledge with curated resources.</p>
+            <a href="{{ url_for('learning') }}" class="dashboard-btn">Start Learning</a>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: ;
+        font-family: 'Poppins', sans-serif;
+        color: #4A4A4A;
+    }
+    .dashboard-container {
+        text-align: center;
+        padding: 40px;
+    }
+    .dashboard-title {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #7a5ea7;
+    }
+    .dashboard-subtitle {
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+        color: #cc7a66;
+    }
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+    .dashboard-card {
+        background: linear-gradient(135deg, #eac8ff, #ffd1b3);
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s;
+    }
+    .dashboard-card:hover {
+        transform: translateY(-5px);
+    }
+    .dashboard-card h2 {
+        color: #7a5ea7;
+        font-size: 1.8rem;
+    }
+    .dashboard-card p {
+        color: #555;
+        font-size: 1rem;
+    }
+    .dashboard-btn {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #cc7a66;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        transition: background 0.3s;
+    }
+    .dashboard-btn:hover {
+        background-color: #b36655;
+    }
+</style>
+{% endblock %}
